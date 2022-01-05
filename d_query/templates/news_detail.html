@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Newspaper name</th>
+      <th scope="col">Language</th>
+
+      <th scope="col">post1</th>
+      <th scope="col">post2</th>
+      <th scope="col">post3</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for new in news %}
+
+    <tr>
+
+      <td><a href="{% url 'news_edit' new.id %}">{{ new.name }}</a></td>
+      <td>{{ new.language }}</td>
+      {% for post in new.post.all %}
+      <td>{{ post.title }}</td>
+
+      {% endfor %}
+
+    </tr>
+
+  {% endfor %}
+
+
+  </tbody>
+</table>
+{% endblock %}

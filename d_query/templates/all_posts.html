@@ -1,0 +1,111 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load filter %}
+{% block content %}
+
+
+
+<!--    <li> {{ user|show_user }}<br><br> </li>-->
+
+
+<form class="form-inline my-2 my-lg-0" method="post" action="" >
+     {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" name="search">
+            <button type="submit">Search</button>
+</form>
+<form class="form-inline my-2 my-lg-0" method="post" action="" >
+    {% csrf_token %}
+           <select class="form-control" id="exampleFormControlSelect1" single name="user_id"  required>
+        {% for user in users %}
+
+               {% if user.id == user_id %}
+
+            <option  selected value={{user.id}}>{{ user.username}}</option>
+            {% else %}
+                <option   value={{user.id}}>{{ user.username}}</option>
+            {% endif %}
+
+
+
+        {% endfor %}
+
+    </select>
+    <button type="submit">Choose User</button>
+    </form>
+<span class="badge badge-primary badge-pill" >No. of posts:{{post_count}}</span>
+
+<h3>You have {% my_posts %} Posts</h3>
+{% for post in post %}
+
+
+        <article class="post">
+            <time class="date">
+                {{ post.published_date }}
+            </time>
+            {% if post.images %}
+            <img src="{{ post.images.url }}" class="img-responsive" style="width: 10%; float: left; margin-right: 10px;" />
+            {% else %}
+            <img src="{% static 'visa-logo-white-background.png'%}" class="img-responsive" style="width: 10%; float: left; margin-right: 10px;" />
+            {% endif %}
+            <video width="100" height="100" controls >
+                <source src="{{ post.video.url }}" type="video/mp4"></video>
+            <h2><a href="{% url 'post_edit' post.pk %}">{{ post.title }}</a></h2>
+            <p><b>{{ post.subject|linebreaksbr }}</b></p>
+            <aside class="actions">
+                
+              {% if request.user.is_superuser and perms.d_query.can_edit %}
+   
+               <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
+               EDIT
+               </a>
+               {% elif request.user.is_staff %}
+               <a class="btn btn-default">
+                EDIT
+                </a>
+               {% endif %}
+   
+               {% if perms.d_query.can_delete %}
+                <a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}">
+               Delete
+               </a>
+               {% elif request.user.is_staff %}
+               <a class="btn btn-default">
+                Delete
+            </a>
+            {% endif %}
+           </aside>
+            {% for comments in post.comments_set.all %}
+<!--            {% if forloop.counter0 == 0 %}-->
+<!--            <h5>User</h5>-->
+
+
+<!--            {% endif %}-->
+<!--            {{comments.user}}-->
+<!--            <br>-->
+<!--            {% if forloop.counter0 == 0 %}-->
+
+<!--             <h5>Comments</h5>-->
+
+
+<!--            {% endif %}-->
+<!--            {{comments.comments}}-->
+            <h5>User: {{comments.user}} </h5>
+
+            <h5>Comment : {{comments.comments}}</h5>
+
+            {% endfor %}
+            <br>
+<!--            <a class="btn btn-default" href="{% url 'add_comments' post.id %}">-->
+<!--                ADD COMMENT-->
+<!--                </a>-->
+
+
+                <a class="btn btn-default" href="{% url 'add_comments' post.id %}">
+                ADD COMMENT
+                </a>
+
+        </article>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Adding Comments</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+  <div class="form-group">
+    <h3>User : </h3>
+      {% if user.username %}
+      <h6>{{ user.username }}</h6><br>
+      {% else %}
+      <h6>anonmous user</h6>
+      {% endif %}
+      <h3>Title : </h3>
+      <h6>{{ post.title }}</h6><br>
+      <h3>Description : </h3>
+      <p>{{ post.subject|linebreaksbr }}</p>
+
+         <div class="form-group">
+    <label for="">Comment</label>
+    <input type="text" class="form-control"  placeholder="" name="comment" required ">
+  </div>
+
+
+
+        <button type="submit" class="save btn btn-default">Save</button>
+        <a class="btn btn-default" href="{% url 'all_posts' %}">
+            Back
+            </a>
+
+        </form>
+
+{% endblock %}

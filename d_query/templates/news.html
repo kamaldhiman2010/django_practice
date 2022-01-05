@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Adding post to news paper</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+  <div class="form-group">
+    <label for="">NewsPaper Name</label>
+    <input type="text" class="form-control"  placeholder="" name="name" required value="{{news.name}}">
+  </div>
+   <div class="form-group">
+    <label for="">Language</label>
+    <input type="text" class="form-control"  placeholder="" name="language" required value="{{news.language}}">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Post select</label>
+    <select class="form-control" id="exampleFormControlSelect1" multiple name="post_ids" required >
+        {% for post in posts %}
+            {% if post.id in post_list %}
+            <option selected  value={{post.id}}>{{ post.title}}</option>
+            {% else %}
+                <option value={{post.id}}>{{ post.title}}</option>
+            {% endif %}
+        {% endfor %}
+
+    </select>
+  </div>
+
+{{delete_id}}
+
+        <button type="submit" class="save btn btn-default">Save</button>
+        <a class="btn btn-default" href="{% url 'new_detail' %}">
+            Back
+            </a>
+<!--        <a class="btn btn-default" href="http://localhost:8000/news_view/{{delete_id}}/delete"/>-->
+<!--            DELETE-->
+<!--            </a>-->
+    </form>
+
+{% endblock %}

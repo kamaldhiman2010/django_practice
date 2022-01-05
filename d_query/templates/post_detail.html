@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <article class="post">
+    {% include 'alert.html' %}
+        <h2>{{ name }}</h2>
+        {% if post.published_date %}
+            <time class="date">
+                {{ post.published_date }}
+            </time>
+        {% endif %}
+
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.subject|linebreaksbr }}</p>
+        <img src="{{ post.images.url }}" class="img-responsive" style="width: 10%; float: left; margin-right: 10px;" />
+        <video width="100" height="100" controls >
+            <source src="{{post.video.url}}" type="video/mp4"></video>
+
+         <aside class="actions">
+             <a class="btn btn-default" href="{% url 'post_list' %}">
+            Back
+            </a>
+
+            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
+            EDIT
+            </a>
+
+
+             <a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}">
+            Delete
+            </a>
+        </aside>
+    </article>
+
+{% endblock %}

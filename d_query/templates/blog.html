@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+{% load filter %}
+
+
+  Hi {{ user|profile }}!
+{% include 'alert.html' %}
+
+<a class="btn btn-default" href="{% url 'post_new' %}">
+            New
+            </a><br><br>
+<a class="btn btn-default" href="{% url 'logout' %}">
+            LOGOUT
+            </a>
+
+<h6>list of even number {{ list_arr|even_no}}</h6>
+<h3>{{addd}}///</h3>
+<h3>{{gen}}</h3>
+
+    {% for post in posts %}
+
+
+        <article class="post">
+            <time class="date">
+                {{ post.published_date| date:"D d M Y" }}
+            </time>
+            <img src="{{ post.images.url }}" class="img-responsive" style="width: 10%; float: left; margin-right: 10px;" />
+            <video width="100" height="100" controls >
+                <source src="{{ post.video.url }}" type="video/mp4"></video>
+
+            <h2><div style="background-color: '{{ post.title|get_color }}' "><a href="{% url 'post_edit' post.pk %}">{{ post.title|low }}</a></h2>
+            <p>{{ post.snippet|up|linebreaksbr }}</p>
+
+            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
+            EDIT
+            </a>
+            <a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}">
+            DELETE
+            </a>
+
+        </article>
+
+
+    {% endfor %}
+{% else %}
+  <p>You are not logged in</p>
+    <a class="btn btn-default" href="{% url 'login' %}">
+            LOGIN
+            </a>
+{% endif %}
+
+
+{% endblock %}

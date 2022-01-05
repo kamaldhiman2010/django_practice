@@ -1,0 +1,12 @@
+new file data
+
+#Search for an upper case "S" character in the beginning of a word, and print its position:
+
+#Search for an upper case "S" character in the beginning of a word, and print its position:
+
+#Search for an upper case "S" character in the beginning of a word, and print its position:
+
+#Search for an upper case "S" character in the beginning of a word, and print its position:
+
+#Search for an upper case "S" character in the beginning of a word, and print its position:
+new file data

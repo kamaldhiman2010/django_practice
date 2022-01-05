@@ -1,0 +1,30 @@
+<h2>Adding User</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+  <div class="form-group">
+    <label for="">Name</label>
+    <input type="text" class="form-control"  placeholder="" name="username" required value="{{alluser.username}}">
+  </div>
+   <div class="form-group">
+    <label for="">FirstName</label>
+    <input type="text" class="form-control"  placeholder="" name="first_name" required value="{{alluser.first_name}}">
+  </div>
+  <div class="form-group">
+    <label for="">LastName</label>
+    <input type="text" class="form-control"  placeholder="" name="last_name" required value="{{alluser.last_name}}">
+  </div>
+  <div class="form-group">
+    <label for="">Email</label>
+    <input type="text" class="form-control"  placeholder="" name="email" required value="{{alluser.email}}">
+  </div>
+  <div class="form-group">
+    <label for="">Password</label>
+    <input type="password" class="form-control"  placeholder="" name="password" required value="{{alluser.password}}">
+  </div>
+  <div class="form-group">
+    <label for="">Age</label>
+    <input type="number" class="form-control"  placeholder="" name="age" required value="{{alluser.age}}">
+  </div>
+  <input class="button is-link is-large" type="submit" value="Submit">
